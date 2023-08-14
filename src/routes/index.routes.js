@@ -1,10 +1,10 @@
 import { Router } from "express";
-import ufcRouter from "./ufc.routes.js";
+import homeRouter from "./home.routes.js";
 import userRouter from "./user.routes.js";
 
 const router = Router();
 
-router.use(ufcRouter);
+router.use(homeRouter);
 router.use(userRouter);
 
 export default router;

@@ -1,7 +1,6 @@
 import { db } from "../database/database.connection.js";
 import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
-// import { registerSchema } from "../schemas/users.schemas.js";
 
 export async function login(req, res) {
 	const { email, password } = req.body;
@@ -23,7 +22,7 @@ export async function login(req, res) {
 					[owner.rows[0].id, token]
 				);
 
-				return res.status(200).send(token);
+				return res.status(200).send({ token: token, id: owner.rows[0].id });
 			} else {
 				return res.sendStatus(401);
 			}
