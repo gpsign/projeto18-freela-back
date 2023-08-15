@@ -5,7 +5,7 @@ export async function getMiausList(req, res) {
 		const miausList = await db.query(
 			`SELECT owners.name AS ownerName, owners.number, owners.id AS ownerId, cats.name AS catName, cats.description, cats.url, cats.id AS catid, cats.available
 		     FROM catsOwnerId
-		   	JOIN cats ON catsOwnerId.catId = cats.id
+		   	INNER JOIN cats ON catsOwnerId.catId = cats.id
 		    JOIN owners ON catsOwnerId.ownerId = owners.id
 			WHERE available = true`
 		);
@@ -35,10 +35,7 @@ export async function getMiauByOwner(req, res) {
 
 	try {
 		const miausList = await db.query(
-			`SELECT cats.*
-		     FROM catsOwnerId
-		   	JOIN cats ON catsOwnerId.catId = cats.id
-		    JOIN owners ON catsOwnerId.ownerId = $1;`,
+			`SELECT cats.* FROM catsOwnerId JOIN cats ON cats.id = catsOwnerId.catId WHERE catsOwnerId.ownerId = $1;`,
 			[id]
 		);
 
@@ -71,7 +68,7 @@ export async function postMiau(req, res) {
 		// const catTagsArray = tags.split(",").map(function (item) {
 		// 	return item.trim();
 		// });
-		
+
 		const insertMiau = await db.query(
 			`INSERT INTO cats (name, url, description) VALUES ($1, $2, $3) RETURNING id;`,
 			[name, url, description]
