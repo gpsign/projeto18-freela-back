@@ -2,7 +2,7 @@ import httpStatus from "http-status";
 import { catServices } from "../services/index.js";
 
 export async function postCat(req, res) {
-	const cat = { ...req, body, userId: req.userId };
+	const cat = { ...req.body, userId: req.userId };
 	await catServices.create(cat);
 	return res.sendStatus(httpStatus.CREATED);
 }

@@ -29,7 +29,7 @@ function findMany() {
 	);
 }
 
-function findByOwnerId(id) {
+function findAllByOwnerId(id) {
 	return db.query(
 		`
         SELECT 
@@ -68,5 +68,5 @@ export const catRepositores = {
 	findMany,
 	updateAvailable,
 	findById,
-	findByOwnerId,
+	findAllByOwnerId,
 };

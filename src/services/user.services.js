@@ -8,6 +8,7 @@ import {
 	userRepositories,
 } from "../repositories/index.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 async function create(user) {
 	const findDuplicate = await userRepositories.findByEmail(user.email);
@@ -32,12 +33,12 @@ async function login(user) {
 		const token = jwt.sign({ userId: account.id }, process.env.JWT_SECRET);
 
 		const loginData = {
-			userId: account.id,
+			id: account.id,
 			token,
 		};
 		await sessionsRepositories.insert(loginData);
 		return { user: account, token };
-	}
+	} else throw invalidCredentials();
 }
 
 async function logout(token) {

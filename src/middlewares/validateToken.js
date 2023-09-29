@@ -1,4 +1,4 @@
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { unauthorizedError } from "../errors/index.js";
 import { sessionsRepositories } from "../repositories/index.js";
 

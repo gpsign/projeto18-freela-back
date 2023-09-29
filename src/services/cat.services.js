@@ -4,7 +4,7 @@ import {
 	catsTagsRepositories,
 	usersCatsRepositories,
 } from "../repositories/index.js";
-import { tagServices } from "./index.js";
+import { tagServices, userServices } from "./index.js";
 
 async function findAll() {
 	const catsList = await catRepositores.findMany();
@@ -14,27 +14,31 @@ async function findAll() {
 async function findAllFromUser(id) {
 	await userServices.findByIdOrThrow(id);
 
-	const list = await catRepositores.findAllFromUser(id);
-	return list;
+	const list = await catRepositores.findAllByOwnerId(id);
+	return list.rows;
 }
 
 async function create(cat) {
 	const insertedCat = await catRepositores.insert(cat);
+	const insertedCatId = insertedCat.rows[0].id;
 	const tagsArray = cat.tags.split(",").map((tag) => {
 		return tag.trim();
 	});
 
+	console.log();
+	console.log(tagsArray);
+
 	tagsArray.forEach(async (tag) => {
-		const insetedTag = await tagServices.insert(tag);
+		const insertedTagId = await tagServices.insert(tag);
 		await catsTagsRepositories.insert({
-			catId: insertedCat,
-			tagId: insetedTag,
+			catId: insertedCatId,
+			tagId: insertedTagId,
 		});
 	});
 
 	await usersCatsRepositories.insert({
-		ownerId: cat.userId,
-		catId: insertedCat,
+		userId: cat.userId,
+		catId: insertedCatId,
 	});
 }
 

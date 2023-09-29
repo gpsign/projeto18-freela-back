@@ -1,10 +1,10 @@
 import { tagRepositories } from "../repositories/index.js";
 
-async function insertTag(name) {
+async function insert(name) {
 	const findDuplicate = await tagRepositories.findByName(name);
 	if (findDuplicate.rows[0]) return findDuplicate.rows[0].id;
 	const insertedTag = await tagRepositories.insert(name);
-	return insertedTag;
+	return insertedTag.rows[0].id;
 }
 
-export const tagServices = { insertTag };
+export const tagServices = { insert };
