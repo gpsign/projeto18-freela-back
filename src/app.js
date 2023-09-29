@@ -13,7 +13,7 @@ app
 	.use(cors())
 	.get("/health", (_req, res) => res.send("OK!"))
 	.use("/cats", catsRouter)
-	.use("/auth", authenticationRouter)
+	.use("/", authenticationRouter)
 	.use(handleErrors);
 
 const port = process.env.PORT || 5000;

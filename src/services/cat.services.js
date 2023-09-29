@@ -18,18 +18,15 @@ async function findAllFromUser(id) {
 	return list.rows;
 }
 
-async function create(cat) {
+async function insertCat(cat) {
 	const insertedCat = await catRepositores.insert(cat);
 	const insertedCatId = insertedCat.rows[0].id;
 	const tagsArray = cat.tags.split(",").map((tag) => {
 		return tag.trim();
 	});
 
-	console.log();
-	console.log(tagsArray);
-
 	tagsArray.forEach(async (tag) => {
-		const insertedTagId = await tagServices.insert(tag);
+		const insertedTagId = await tagServices.insertReturningId(tag);
 		await catsTagsRepositories.insert({
 			catId: insertedCatId,
 			tagId: insertedTagId,
@@ -42,7 +39,7 @@ async function create(cat) {
 	});
 }
 
-async function update(cat) {
+async function updateCat(cat) {
 	const findCatQuery = await catRepositores.findById(cat.id);
 	const foundCat = findCatQuery.rows[0];
 
@@ -51,4 +48,4 @@ async function update(cat) {
 	await catRepositores.update(cat);
 }
 
-export const catServices = { findAll, create, update, findAllFromUser };
+export const catServices = { findAll, insertCat, updateCat, findAllFromUser };

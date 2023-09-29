@@ -17,7 +17,7 @@ function findMany() {
             c.id AS "catId", 
             c.available,  
             JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'CPF', u.cpf, 'userId', u.id) AS "owner",
-            ARRAY_AGG(t.name) AS "tags"
+            ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
         FROM "usersCats" uc
         JOIN cats c ON uc."catId" = c.id
         JOIN users u ON uc."userId" = u.id
@@ -39,7 +39,7 @@ function findAllByOwnerId(id) {
             c.id AS "catId", 
             c.available,  
             JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'CPF', u.cpf, 'userId', u.id) AS "owner",
-            ARRAY_AGG(t.name) AS "tags"
+            ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
         FROM "usersCats" uc
         JOIN cats c ON uc."catId" = c.id
         JOIN users u ON uc."userId" = u.id
