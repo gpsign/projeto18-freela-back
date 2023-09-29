@@ -3,6 +3,7 @@ import "express-async-errors";
 import dotenv from "dotenv";
 import cors from "cors";
 import { catsRouter, authenticationRouter } from "./routes/index.routes.js";
+import { handleErrors } from "./middlewares/errorHandler.js";
 
 dotenv.config();
 
@@ -12,7 +13,8 @@ app
 	.use(cors())
 	.get("/health", (_req, res) => res.send("OK!"))
 	.use("/cats", catsRouter)
-	.use("/auth", authenticationRouter);
+	.use("/auth", authenticationRouter)
+	.use(handleErrors);
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

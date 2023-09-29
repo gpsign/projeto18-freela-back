@@ -1,6 +1,6 @@
-export function invalidDataError() {
+export function invalidDataError(data) {
 	return {
 		type: "INVALID DATA",
-		message: `Invalid Data`,
+		message: data,
 	};
 }
