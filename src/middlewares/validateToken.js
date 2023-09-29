@@ -1,26 +1,19 @@
-import { db } from "../database/database.connection.js";
+import * as jwt from "jsonwebtoken";
+import { unauthorizedError } from "../errors/index.js";
+import { sessionsRepositories } from "../repositories/index.js";
 
-export async function validateToken(req, res, next) {
-	const authorization = req.headers.authorization;
-	const token = authorization?.replace("Bearer ", "");
+export async function authenticateToken(req, res, next) {
+	const authHeader = req.header("Authorization");
+	if (!authHeader) throw unauthorizedError();
 
-	if (!token) {
-		return res.sendStatus(401);
-	}
+	const token = authHeader.split(" ")[1];
+	if (!token) throw unauthorizedError();
 
-	let session = await db.query(
-		`SELECT * FROM owners
-    JOIN ownersSession ON token = $1;`,
-		[token]
-	);
+	const { userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-	if (!session.rows[0]) {
-		return res.sendStatus(401);
-	} else session = session.rows[0];
+	const session = await sessionsRepositories.read(token);
+	if (!session) throw unauthorizedError();
 
-	delete session.password;
-
-	res.locals.user = session;
-
+	req.userId = userId;
 	next();
 }
