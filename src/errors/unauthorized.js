@@ -1,3 +1,3 @@
-export function unauthorizedError() {
-	return { type: "UNAUTHORIZED", message: "Session expired" };
+export function unauthorizedError(data) {
+	return { name: "Unauthorized", message: data };
 }

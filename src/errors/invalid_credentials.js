@@ -1,6 +1,6 @@
 export function invalidCredentials() {
 	return {
-		type: "INVALID CREDENTIALS",
+		name: "InvalidCredentials",
 		message: "Invalid email or password",
 	};
 }

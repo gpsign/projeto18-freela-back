@@ -11,6 +11,20 @@ async function findAll() {
 	return catsList.rows;
 }
 
+async function findAllByTags(tags) {
+	const tagsArray = tags.split(", ").map((tag) => {
+		return tag.trim();
+	});
+
+	const catsList = await catRepositores.findManyLikeTag(tagsArray);
+	return catsList.rows;
+}
+
+async function findAllByName(name) {
+	const catsList = await catRepositores.findManyLikeName(name);
+	return catsList.rows;
+}
+
 async function findAllFromUser(id) {
 	await userServices.findByIdOrThrow(id);
 
@@ -48,4 +62,11 @@ async function updateCat(cat) {
 	await catRepositores.update(cat);
 }
 
-export const catServices = { findAll, insertCat, updateCat, findAllFromUser };
+export const catServices = {
+	findAll,
+	insertCat,
+	updateCat,
+	findAllFromUser,
+	findAllByName,
+	findAllByTags,
+};

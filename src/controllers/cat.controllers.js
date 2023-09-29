@@ -8,7 +8,15 @@ export async function postCat(req, res) {
 }
 
 export async function getAllCats(req, res) {
-	const catsList = await catServices.findAll();
+	const { tags, name } = req.query;
+	let catsList;
+
+	if (name != undefined) {
+		catsList = await catServices.findAllByName(name);
+	} else if (tags != undefined) {
+		catsList = await catServices.findAllByTags(tags);
+	} else catsList = await catServices.findAll();
+
 	return res.status(httpStatus.OK).send(catsList);
 }
 

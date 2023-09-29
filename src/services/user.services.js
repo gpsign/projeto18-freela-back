@@ -30,7 +30,16 @@ async function login(user) {
 	if (isPasswordValid) {
 		delete account.password;
 
-		const token = jwt.sign({ userId: account.id }, process.env.JWT_SECRET);
+		const duplicateSessionQuery = await sessionsRepositories.readByUserId(
+			account.id
+		);
+		const duplicateSession = duplicateSessionQuery.rows[0];
+		if (duplicateSession)
+			await sessionsRepositories.remove(duplicateSession.token);
+
+		const token = jwt.sign({ userId: account.id }, process.env.JWT_SECRET, {
+			expiresIn: 60 * 20,
+		});
 
 		const loginData = {
 			id: account.id,

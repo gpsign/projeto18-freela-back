@@ -11,8 +11,12 @@ function read(token) {
 	return db.query(`SELECT * FROM sessions WHERE token = $1;`, [token]);
 }
 
+function readByUserId(id) {
+	return db.query(`SELECT * FROM sessions WHERE "userId" = $1;`, [id]);
+}
+
 function remove(token) {
 	return db.query(`DELETE FROM sessions WHERE token = $1;`, [token]);
 }
 
-export const sessionsRepositories = { insert, read, remove };
+export const sessionsRepositories = { insert, read, remove, readByUserId };
