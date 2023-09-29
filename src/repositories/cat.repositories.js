@@ -110,7 +110,7 @@ function findById(id) {
 	return db.query(`SELECT * FROM cats WHERE id = $1;`, [id]);
 }
 
-function updateAvailable(cat) {
+function updateAvailableCat(cat) {
 	return db.query(`UPDATE cats SET available = $1 WHERE cats.id = $2;`, [
 		cat.available,
 		cat.id,
@@ -120,7 +120,7 @@ function updateAvailable(cat) {
 export const catRepositores = {
 	insert,
 	findMany,
-	updateAvailable,
+	updateAvailableCat,
 	findById,
 	findAllByOwnerId,
 	findManyLikeTag,

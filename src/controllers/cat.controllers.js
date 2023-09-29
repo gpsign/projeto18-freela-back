@@ -27,8 +27,8 @@ export async function getAllCatsFromUser(req, res) {
 	return res.status(httpStatus.OK).send(catsList);
 }
 
-export async function updateCat(req, res) {
-	const { catId } = req.params;
-	await catServices.updateCat(catId);
+export async function updateAvailableCat(req, res) {
+	const cat = req.body;
+	await catServices.updateAvailableCat(cat);
 	return res.sendStatus(httpStatus.OK);
 }

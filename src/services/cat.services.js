@@ -53,19 +53,19 @@ async function insertCat(cat) {
 	});
 }
 
-async function updateCat(cat) {
+async function updateAvailableCat(cat) {
 	const findCatQuery = await catRepositores.findById(cat.id);
 	const foundCat = findCatQuery.rows[0];
 
 	if (!foundCat) throw notFound("Cat");
 
-	await catRepositores.update(cat);
+	await catRepositores.updateAvailableCat(cat);
 }
 
 export const catServices = {
 	findAll,
 	insertCat,
-	updateCat,
+	updateAvailableCat,
 	findAllFromUser,
 	findAllByName,
 	findAllByTags,

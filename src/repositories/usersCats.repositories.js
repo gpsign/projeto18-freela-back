@@ -7,11 +7,8 @@ function insert(relation) {
 	);
 }
 
-function readByUserId(id) {
-	return db.query(
-		`SELECT cats.* FROM "usersCats" JOIN cats ON cats.id = "usersCats"."catId" WHERE "usersCats"."userId" = $1;`,
-		[id]
-	);
+function removeAllCatTagsByCatId(id) {
+	return db.query(`DELETE FROM "catsTags" ct WHERE ct."catId" = $1;`, [id]);
 }
 
-export const usersCatsRepositories = { insert };
+export const usersCatsRepositories = { insert, removeAllCatTagsByCatId };
