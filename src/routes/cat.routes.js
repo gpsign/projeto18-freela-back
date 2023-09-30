@@ -5,7 +5,7 @@ import {
 	getAllCats,
 	getAllCatsFromUser,
 	postCat,
-	updateCat,
+	updateAvailableCat,
 } from "../controllers/index.js";
 
 const catsRouter = Router();
@@ -15,6 +15,6 @@ catsRouter
 	.post("/", validateBody(catSchema), postCat)
 	.get("/", getAllCats)
 	.get("/user/:userId", getAllCatsFromUser)
-	.put("/:catId", updateCat);
+	.put("/:catId", updateAvailableCat);
 
 export { catsRouter };
