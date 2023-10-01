@@ -14,7 +14,7 @@ catsRouter
 	.all("/*", authenticateToken)
 	.post("/", validateBody(catSchema), postCat)
 	.get("/", getAllCats)
-	.get("/user/:userId", getAllCatsFromUser)
+	.get("/user", getAllCatsFromUser)
 	.put("/:catId", updateAvailableCat);
 
 export { catsRouter };

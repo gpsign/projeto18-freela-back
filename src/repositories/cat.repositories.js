@@ -111,6 +111,7 @@ function findById(id) {
 }
 
 function updateAvailableCat(cat) {
+	console.log(cat);
 	return db.query(`UPDATE cats SET available = $1 WHERE cats.id = $2;`, [
 		cat.available,
 		cat.id,

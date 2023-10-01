@@ -21,14 +21,13 @@ export async function getAllCats(req, res) {
 }
 
 export async function getAllCatsFromUser(req, res) {
-	const { userId } = req.params;
-
+	const { userId } = req;
 	const catsList = await catServices.findAllFromUser(userId);
 	return res.status(httpStatus.OK).send(catsList);
 }
 
 export async function updateAvailableCat(req, res) {
-	const cat = req.body;
+	const cat = {...req.body, id: req.params.catId }
 	await catServices.updateAvailableCat(cat);
 	return res.sendStatus(httpStatus.OK);
 }

@@ -54,6 +54,7 @@ async function insertCat(cat) {
 }
 
 async function updateAvailableCat(cat) {
+	console.log(cat);
 	const findCatQuery = await catRepositores.findById(cat.id);
 	const foundCat = findCatQuery.rows[0];
 

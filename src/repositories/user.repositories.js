@@ -3,7 +3,7 @@ import { db } from "../database/database.connection.js";
 function insert(user) {
 	return db.query(
 		`INSERT INTO users (name, phone, cpf, email, password) VALUES ($1, $2, $3, $4, $5)`,
-		[user.name, user.phone, user.cpf, user.email, user.passwordHash]
+		[user.name, user.number, user.cpf, user.email, user.password]
 	);
 }
 

@@ -38,7 +38,7 @@ async function login(user) {
 			await sessionsRepositories.remove(duplicateSession.token);
 
 		const token = jwt.sign({ userId: account.id }, process.env.JWT_SECRET, {
-			expiresIn: 60 * 20,
+			expiresIn: 60 * 60 * 24,
 		});
 
 		const loginData = {
