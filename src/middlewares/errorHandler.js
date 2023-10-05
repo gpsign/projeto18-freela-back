@@ -20,6 +20,9 @@ export function handleErrors(err, _req, res, next) {
 		case "TokenExpiredError":
 			return res.status(httpStatus.UNAUTHORIZED).send("Session expired");
 
+		case "JsonWebTokenError":
+			return res.status(httpStatus.UNAUTHORIZED).send("Bad token");
+
 		default:
 			console.error(err);
 			return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({

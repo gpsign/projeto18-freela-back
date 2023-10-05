@@ -2,7 +2,11 @@ import express from "express";
 import "express-async-errors";
 import dotenv from "dotenv";
 import cors from "cors";
-import { catsRouter, authenticationRouter } from "./routes/index.routes.js";
+import {
+	catsRouter,
+	authenticationRouter,
+	tagsRouter,
+} from "./routes/index.routes.js";
 import { handleErrors } from "./middlewares/errorHandler.js";
 
 dotenv.config();
@@ -13,6 +17,7 @@ app
 	.use(cors())
 	.get("/health", (_req, res) => res.send("OK!"))
 	.use("/cats", catsRouter)
+	.use("/tags", tagsRouter)
 	.use("/", authenticationRouter)
 	.use(handleErrors);
 
