@@ -36,18 +36,19 @@ async function insertCat(cat) {
 	const insertedCat = await catRepositores.insert(cat);
 	const insertedCatId = insertedCat.rows[0].id;
 	const tagsArray = cat.tags.split(",").map((tag) => {
-		return tag.trim();
+		return tag.trim().toUpperCase();
 	});
 
 	tagsArray.forEach(async (tag) => {
-	if(tag != ""){
-		const insertedTagId = await tagServices.insertReturningId(tag);
-		await catsTagsRepositories.insert({
-			catId: insertedCatId,
-			tagId: insertedTagId,
-		});
-	}
-		
+		console.log(tag);
+		if (tag != "") {
+			const insertedTagId = await tagServices.insertReturningId(tag);
+			console.log("inserted ", tag, insertedTagId);
+			await catsTagsRepositories.insert({
+				catId: insertedCatId,
+				tagId: insertedTagId,
+			});
+		}
 	});
 
 	await usersCatsRepositories.insert({
