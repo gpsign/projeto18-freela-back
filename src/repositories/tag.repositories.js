@@ -23,7 +23,8 @@ function findPopularTags() {
 		INNER JOIN tags t 
 		ON ct."tagId" = t.id
 		GROUP BY t.name
-		ORDER BY popularity DESC;
+		ORDER BY popularity DESC
+		LIMIT 14;
 	`);
 }
 

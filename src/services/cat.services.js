@@ -40,11 +40,14 @@ async function insertCat(cat) {
 	});
 
 	tagsArray.forEach(async (tag) => {
+	if(tag != ""){
 		const insertedTagId = await tagServices.insertReturningId(tag);
 		await catsTagsRepositories.insert({
 			catId: insertedCatId,
 			tagId: insertedTagId,
 		});
+	}
+		
 	});
 
 	await usersCatsRepositories.insert({
