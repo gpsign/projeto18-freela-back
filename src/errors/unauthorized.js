@@ -1,3 +1,3 @@
 export function unauthorizedError(data) {
-	return { name: "Unauthorized", message: data };
+	return { name: "UnauthorizedError", message: data };
 }

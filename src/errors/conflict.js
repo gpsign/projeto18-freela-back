@@ -1,6 +1,6 @@
 export function conflictError(data) {
 	return {
-		name: "Conflict",
+		name: "ConflictError",
 		message: `${data} already in use`,
 	};
 }

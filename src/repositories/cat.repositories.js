@@ -18,11 +18,11 @@ function findMany() {
             c.available,  
             JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'email', u.email, 'userId', u.id, 'url', u.url) AS "owner",
             ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
-        FROM "usersCats" uc
-        JOIN cats c ON uc."catId" = c.id
-        JOIN users u ON uc."userId" = u.id
-        LEFT JOIN "catsTags" ct ON ct."catId" = c.id
-        LEFT JOIN tags t ON ct."tagId" = t.id
+        FROM "user_cats" uc
+        JOIN cats c ON uc."cat_id" = c.id
+        JOIN users u ON uc."user_id" = u.id
+        LEFT JOIN "cat_tags" ct ON ct."cat_id" = c.id
+        LEFT JOIN tags t ON ct."tag_id" = t.id
         WHERE available = true
         GROUP BY u.name, u.phone, u.cpf, u.id, c.id
         `
@@ -46,11 +46,11 @@ function findManyLikeTag(tag) {
             c.available,  
             JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'email', u.email, 'userId', u.id, 'url', u.url) AS "owner",
             ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
-        FROM "usersCats" uc
-        JOIN cats c ON uc."catId" = c.id
-        JOIN users u ON uc."userId" = u.id
-        LEFT JOIN "catsTags" ct ON ct."catId" = c.id
-        LEFT JOIN tags t ON ct."tagId" = t.id
+        FROM "user_cats" uc
+        JOIN cats c ON uc."cat_id" = c.id
+        JOIN users u ON uc."user_id" = u.id
+        LEFT JOIN "cat_tags" ct ON ct."cat_id" = c.id
+        LEFT JOIN tags t ON ct."tag_id" = t.id
         WHERE available = true
         GROUP BY u.name, u.phone, u.cpf, u.id, c.id
         HAVING ${tagsQuery};
@@ -70,11 +70,11 @@ function findManyLikeName(name) {
             c.available,  
             JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'email', u.email, 'userId', u.id, 'url', u.url) AS "owner",
             ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
-        FROM "usersCats" uc
-        JOIN cats c ON uc."catId" = c.id
-        JOIN users u ON uc."userId" = u.id
-        LEFT JOIN "catsTags" ct ON ct."catId" = c.id
-        LEFT JOIN tags t ON ct."tagId" = t.id
+        FROM "user_cats" uc
+        JOIN cats c ON uc."cat_id" = c.id
+        JOIN users u ON uc."user_id" = u.id
+        LEFT JOIN "cat_tags" ct ON ct."cat_id" = c.id
+        LEFT JOIN tags t ON ct."tag_id" = t.id
         WHERE available = true
         AND c.name ILIKE $1
         GROUP BY u.name, u.phone, u.cpf, u.id, c.id
@@ -94,11 +94,11 @@ function findAllByOwnerId(id) {
             c.available,  
             JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'email', u.email, 'userId', u.id, 'url', u.url) AS "owner",
             ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
-        FROM "usersCats" uc
-        JOIN cats c ON uc."catId" = c.id
-        JOIN users u ON uc."userId" = u.id
-        LEFT JOIN "catsTags" ct ON ct."catId" = c.id
-        LEFT JOIN tags t ON ct."tagId" = t.id
+        FROM "user_cats" uc
+        JOIN cats c ON uc."cat_id" = c.id
+        JOIN users u ON uc."user_id" = u.id
+        LEFT JOIN "cat_tags" ct ON ct."cat_id" = c.id
+        LEFT JOIN tags t ON ct."tag_id" = t.id
         WHERE u.id = $1
         GROUP BY u.name, u.phone, u.cpf, u.id, c.id
         `,

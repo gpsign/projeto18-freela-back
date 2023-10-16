@@ -30,7 +30,7 @@ async function login(user) {
 	if (isPasswordValid) {
 		delete account.password;
 
-		const duplicateSessionQuery = await sessionsRepositories.readByUserId(
+		const duplicateSessionQuery = await sessionsRepositories.findByUserId(
 			account.id
 		);
 		const duplicateSession = duplicateSessionQuery.rows[0];

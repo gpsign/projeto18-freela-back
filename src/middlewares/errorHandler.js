@@ -2,19 +2,19 @@ import httpStatus from "http-status";
 
 export function handleErrors(err, _req, res, next) {
 	switch (err.name) {
-		case "Conflict":
+		case "ConflictError":
 			return res.status(httpStatus.CONFLICT).send(err.message);
 
-		case "InvalidCredentials":
+		case "InvalidCredentialsError":
 			return res.status(httpStatus.UNAUTHORIZED).send(err.message);
 
-		case "NotFound":
+		case "NotFoundError":
 			return res.status(httpStatus.NOT_FOUND).send(err.message);
 
-		case "InvalidData":
+		case "InvalidDataError":
 			return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(err.message);
 
-		case "Unauthorized":
+		case "UnauthorizedError":
 			return res.status(httpStatus.UNAUTHORIZED).send(err.message);
 
 		case "TokenExpiredError":

@@ -1,8 +1,8 @@
 import { notFound } from "../errors/not_found.js";
 import {
 	catRepositores,
-	catsTagsRepositories,
-	usersCatsRepositories,
+	catTagsRepositories,
+	userCatsRepositories,
 } from "../repositories/index.js";
 import { tagServices, userServices } from "./index.js";
 
@@ -44,14 +44,14 @@ async function insertCat(cat) {
 		if (tag != "") {
 			const insertedTagId = await tagServices.insertReturningId(tag);
 			console.log("inserted ", tag, insertedTagId);
-			await catsTagsRepositories.insert({
+			await catTagsRepositories.insert({
 				catId: insertedCatId,
 				tagId: insertedTagId,
 			});
 		}
 	});
 
-	await usersCatsRepositories.insert({
+	await userCatsRepositories.insert({
 		userId: cat.userId,
 		catId: insertedCatId,
 	});

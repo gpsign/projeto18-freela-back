@@ -8,10 +8,10 @@ export async function authenticateToken(req, res, next) {
 
 	const token = authHeader.split(" ")[1];
 	if (!token) throw unauthorizedError();
-	
+
 	const { userId } = jwt.verify(token, process.env.JWT_SECRET);
 
-	const session = await sessionsRepositories.read(token);
+	const session = await sessionsRepositories.findByToken(token);
 	if (!session.rows[0]) throw unauthorizedError("Couldn't find session");
 
 	req.userId = userId;

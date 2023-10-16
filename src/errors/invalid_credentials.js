@@ -1,6 +1,6 @@
 export function invalidCredentials() {
 	return {
-		name: "InvalidCredentials",
+		name: "InvalidCredentialsError",
 		message: "Invalid email or password",
 	};
 }

@@ -1,6 +1,6 @@
 export function notFound(data) {
 	return {
-		name: "NotFound",
+		name: "NotFoundError",
 		message: `${data} not found`,
 	};
 }

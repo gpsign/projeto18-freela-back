@@ -1,6 +1,6 @@
 export function invalidDataError(data) {
 	return {
-		name: "InvalidData",
+		name: "InvalidDataError",
 		message: data,
 	};
 }

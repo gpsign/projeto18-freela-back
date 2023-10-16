@@ -21,7 +21,7 @@ function findPopularTags() {
 		SELECT t.name as tag, COUNT(t.name) AS "popularity"
 		FROM "catsTags" ct 
 		INNER JOIN tags t 
-		ON ct."tagId" = t.id
+		ON ct."tag_id" = t.id
 		GROUP BY t.name
 		ORDER BY popularity DESC
 		LIMIT 15;
