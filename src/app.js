@@ -6,6 +6,7 @@ import {
 	catsRouter,
 	authenticationRouter,
 	tagsRouter,
+	notificationsRouter,
 } from "./routes/index.routes.js";
 import { handleErrors } from "./middlewares/errorHandler.js";
 
@@ -18,6 +19,7 @@ app
 	.get("/health", (_req, res) => res.send("OK!"))
 	.use("/cats", catsRouter)
 	.use("/tags", tagsRouter)
+	.use("/notifications", notificationsRouter)
 	.use("/", authenticationRouter)
 	.use(handleErrors);
 

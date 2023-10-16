@@ -1,4 +1,4 @@
-import { invalidDataError } from "../errors/index.js";
+import { badRequestError } from "../errors/index.js";
 
 export function validateBody(schema) {
 	return validate(schema, "body");
@@ -18,8 +18,8 @@ function validate(schema, type) {
 			next();
 		} else {
 			let errorMessage = "";
-			error.details.forEach((d) => (errorMessage += d.message + " "));
-			throw invalidDataError(errorMessage);
+			error.details.forEach((d) => (errorMessage += d.message + ". "));
+			throw badRequestError(errorMessage);
 		}
 	};
 }

@@ -11,8 +11,11 @@ export function handleErrors(err, _req, res, next) {
 		case "NotFoundError":
 			return res.status(httpStatus.NOT_FOUND).send(err.message);
 
-		case "InvalidDataError":
+		case "UnprocessableEntityError":
 			return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(err.message);
+
+		case "BadRequestError":
+			return res.status(httpStatus.BAD_REQUEST).send(err.message);
 
 		case "UnauthorizedError":
 			return res.status(httpStatus.UNAUTHORIZED).send(err.message);

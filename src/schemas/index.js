@@ -1,3 +1,4 @@
-export * from "./cat.schema.js";
-export * from "./sign-in.schema.js";
-export * from "./sign-up.schema.js";
+export * from "./cat.schemas.js";
+export * from "./sign-in.schemas.js";
+export * from "./sign-up.schemas.js";
+export * from "./notification.schemas.js";

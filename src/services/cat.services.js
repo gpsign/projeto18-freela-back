@@ -1,10 +1,16 @@
-import { notFound } from "../errors/not_found.js";
+import { notFoundError } from "../errors/not_found.js";
 import {
 	catRepositores,
 	catTagsRepositories,
 	userCatsRepositories,
 } from "../repositories/index.js";
 import { tagServices, userServices } from "./index.js";
+
+async function findByIdOrThrow(id) {
+	const cat = await catRepositores.findById(id);
+	if (!cat.rows[0]) throw notFoundError("Cat");
+	return cat.rows[0];
+}
 
 async function findAll() {
 	const catsList = await catRepositores.findMany();
@@ -62,7 +68,7 @@ async function updateAvailableCat(cat) {
 	const findCatQuery = await catRepositores.findById(cat.id);
 	const foundCat = findCatQuery.rows[0];
 
-	if (!foundCat) throw notFound("Cat");
+	if (!foundCat) throw notFoundError("Cat");
 
 	await catRepositores.updateAvailableCat(cat);
 }
@@ -74,4 +80,5 @@ export const catServices = {
 	findAllFromUser,
 	findAllByName,
 	findAllByTags,
+	findByIdOrThrow,
 };

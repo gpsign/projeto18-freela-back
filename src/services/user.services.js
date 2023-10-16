@@ -1,7 +1,7 @@
 import {
 	conflictError,
-	invalidCredentials,
-	notFound,
+	invalidCredentialsError,
+	notFoundError,
 } from "../errors/index.js";
 import {
 	sessionsRepositories,
@@ -24,7 +24,7 @@ async function login(user) {
 	const accountQuery = await userRepositories.findByEmail(user.email);
 	const account = accountQuery.rows[0];
 
-	if (!account) throw invalidCredentials();
+	if (!account) throw invalidCredentialsError();
 	const isPasswordValid = bcrypt.compareSync(user.password, account.password);
 
 	if (isPasswordValid) {
@@ -47,7 +47,7 @@ async function login(user) {
 		};
 		await sessionsRepositories.insert(loginData);
 		return { user: account, token };
-	} else throw invalidCredentials();
+	} else throw invalidCredentialsError();
 }
 
 async function logout(token) {
@@ -57,7 +57,7 @@ async function logout(token) {
 async function findByIdOrThrow(userId) {
 	const userQuery = await userRepositories.findById(userId);
 	const user = userQuery.rows[0];
-	if (!user) throw notFound("User");
+	if (!user) throw notFoundError("User");
 	return user;
 }
 
