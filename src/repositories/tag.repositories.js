@@ -24,7 +24,7 @@ function findPopularTags() {
 		ON ct."tagId" = t.id
 		GROUP BY t.name
 		ORDER BY popularity DESC
-		LIMIT 14;
+		LIMIT 15;
 	`);
 }
 

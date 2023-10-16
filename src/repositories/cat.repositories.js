@@ -16,7 +16,7 @@ function findMany() {
             c.url, 
             c.id AS "catId", 
             c.available,  
-            JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'CPF', u.cpf, 'userId', u.id) AS "owner",
+            JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'email', u.email, 'userId', u.id, 'url', u.url) AS "owner",
             ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
         FROM "usersCats" uc
         JOIN cats c ON uc."catId" = c.id
@@ -44,7 +44,7 @@ function findManyLikeTag(tag) {
             c.url, 
             c.id AS "catId", 
             c.available,  
-            JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'CPF', u.cpf, 'userId', u.id) AS "owner",
+            JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'email', u.email, 'userId', u.id, 'url', u.url) AS "owner",
             ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
         FROM "usersCats" uc
         JOIN cats c ON uc."catId" = c.id
@@ -68,7 +68,7 @@ function findManyLikeName(name) {
             c.url, 
             c.id AS "catId", 
             c.available,  
-            JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'CPF', u.cpf, 'userId', u.id) AS "owner",
+            JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'email', u.email, 'userId', u.id, 'url', u.url) AS "owner",
             ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
         FROM "usersCats" uc
         JOIN cats c ON uc."catId" = c.id
@@ -92,7 +92,7 @@ function findAllByOwnerId(id) {
             c.url, 
             c.id AS "catId", 
             c.available,  
-            JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'CPF', u.cpf, 'userId', u.id) AS "owner",
+            JSON_BUILD_OBJECT('username', u.name, 'phone', u.phone, 'email', u.email, 'userId', u.id, 'url', u.url) AS "owner",
             ARRAY_REMOVE(ARRAY_AGG(t.name), null) AS "tags"
         FROM "usersCats" uc
         JOIN cats c ON uc."catId" = c.id
