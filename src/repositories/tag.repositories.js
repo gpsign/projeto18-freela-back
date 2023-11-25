@@ -19,7 +19,7 @@ function findById(id) {
 function findPopularTags() {
 	return db.query(`
 		SELECT t.name as tag, COUNT(t.name) AS "popularity"
-		FROM "catsTags" ct 
+		FROM "cat_tags" ct 
 		INNER JOIN tags t 
 		ON ct."tag_id" = t.id
 		GROUP BY t.name
