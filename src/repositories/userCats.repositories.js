@@ -2,7 +2,7 @@ import { db } from "../database/database.connection.js";
 
 function insert(relation) {
 	return db.query(
-		`INSERT INTO "usersCats" ("user_id", "cat_id") VALUES ($1, $2);`,
+		`INSERT INTO "user_cats" ("user_id", "cat_id") VALUES ($1, $2);`,
 		[relation.userId, relation.catId]
 	);
 }
